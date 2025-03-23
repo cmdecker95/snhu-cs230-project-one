@@ -8,6 +8,10 @@
 # Artifacts
 *.zip
 
+# IDE
+.idea/
+.vscode/
+
 # Misc
 .DS_Store
 Thumbs.db
