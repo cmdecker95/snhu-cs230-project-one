@@ -1,45 +1,22 @@
 package com.gamingroom;
 
 /**
- * A simple class to hold information about a team
- * <p>
- * Notice the overloaded constructor that requires
- * an id and name to be passed when creating.
- * Also note that no mutators (setters) defined so
- * these values cannot be changed once a team is
- * created.
- * </p>
+ * A simple class to hold information about a team.
+ * 
  * @author coce@snhu.edu
- *
+ * @author Christian Decker
  */
-public class Team {
-	long id;
-	String name;
-	
-	/*
-	 * Constructor with an identifier and name
-	 */
-	public Team(long id, String name) {
-		this.id = id;
-		this.name = name;
-	}
+public class Team extends Entity {
 
-	/**
-	 * @return the id
-	 */
-	public long getId() {
-		return id;
-	}
+  /**
+   * Constructor with an identifier and name
+   */
+  public Team(long id, String name) {
+    super(id, name); // Calls the Entity(long, String) constructor overload
+  }
 
-	/**
-	 * @return the name
-	 */
-	public String getName() {
-		return name;
-	}
-
-	@Override
-	public String toString() {
-		return "Team [id=" + id + ", name=" + name + "]";
-	}
+  @Override
+  public String toString() {
+    return "Team [id=" + getId() + ", name=" + getName() + "]";
+  }
 }
