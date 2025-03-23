@@ -5,6 +5,9 @@
 # Word
 ~$*.docx
 
+# Artifacts
+*.zip
+
 # Misc
 .DS_Store
 Thumbs.db
