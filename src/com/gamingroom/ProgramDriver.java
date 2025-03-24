@@ -8,35 +8,68 @@ package com.gamingroom;
 public class ProgramDriver {
 
   /**
-   * The one-and-only main() method
+   * Steps performed in this main method:
+   * 
+   * 1. Obtain reference to the singleton instance of GameService.
+   * 
+   * 2. Print a message indicating testing of uniqueness validation.
+   * 
+   * 3. Test game uniqueness by creating a game and attempting to create a
+   * duplicate.
+   * 
+   * 4. Test team uniqueness by creating a team and attempting to create a
+   * duplicate.
+   * 
+   * 5. Test player uniqueness by creating a player and attempting to create a
+   * duplicate.
+   * 
+   * 6. Add more games, teams, and players to test memory usage.
+   * 
+   * 7. Use another class (SingletonTester) to verify that only one instance of
+   * GameService exists.
    * 
    * @param args command line arguments
-   */
-  /**
-   * The main method serves as the entry point for the application. It
-   * demonstrates the use of the singleton pattern by obtaining a reference to the
-   * singleton instance of GameService and initializing some game data. The
-   * singleton pattern ensures that a class has only one instance and provides a
-   * global point of access to it. This is useful in this application to ensure
-   * that there is only one instance of GameService managing the game data. Steps
-   * performed in this method: 1. Obtain reference to the singleton instance of
-   * GameService. 2. Print a message indicating the start of game data
-   * initialization. 3. Add two games to the GameService and print their details.
-   * 4. Use another class (SingletonTester) to verify that only one instance of
-   * GameService exists.
    */
   public static void main(String[] args) {
 
     // Obtain reference to the singleton instance
-    GameService service = GameService.getInstance();
+    GameService service = GameService.getService();
 
-    System.out.println("\nAbout to test initializing game data...");
+    System.out.println("\nTesting uniqueness validation for games, teams, and players...");
 
-    // initialize with some game data
-    Game game1 = service.addGame("Game #1");
-    System.out.println(game1);
-    Game game2 = service.addGame("Game #2");
-    System.out.println(game2);
+    // Test game uniqueness
+    Game game1 = service.addGame("GAME 001");
+    System.out.println("Successfully created: " + game1);
+
+    // Try to create a game with the same name
+    Game duplicateGame = service.addGame("GAME 001");
+    System.out.println("Attempted duplicate game: "
+        + (duplicateGame == game1 ? "Returned existing game (correct)" : "Created duplicate (wrong)"));
+
+    // Test team uniqueness
+    Team team1 = game1.addTeam("TEAM 001");
+    System.out.println("Successfully created team: " + team1);
+
+    // Try to create a team with the same name
+    Team duplicateTeam = game1.addTeam("TEAM 001");
+    System.out.println("Attempted duplicate team: "
+        + (duplicateTeam == team1 ? "Returned existing team (correct)" : "Created duplicate (wrong)"));
+
+    // Test player uniqueness
+    Player player1 = team1.addPlayer("PLAYER 001");
+    System.out.println("Successfully created player: " + player1);
+
+    // Try to create a player with the same name
+    Player duplicatePlayer = team1.addPlayer("PLAYER 001");
+    System.out.println("Attempted duplicate player: "
+        + (duplicatePlayer == player1 ? "Returned existing player (correct)" : "Created duplicate (wrong)"));
+
+    // Add more games, teams, and players to test memory usage
+    for (int i = 2; i <= 23; i++) {
+      Game game = service.addGame("GAME " + String.format("%03d", i));
+      Team team = game.addTeam("TEAM " + String.format("%03d", i));
+      team.addPlayer("PLAYER " + String.format("%03d", i));
+    }
 
     // use another class to prove there is only one instance
     SingletonTester tester = new SingletonTester();

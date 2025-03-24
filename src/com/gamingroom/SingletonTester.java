@@ -24,7 +24,7 @@ public class SingletonTester {
     System.out.println("\nAbout to test the singleton...");
 
     // Obtain reference to the singleton instance
-    GameService service = GameService.getInstance();
+    GameService service = GameService.getService();
 
     // a simple for loop to print the games
     for (int i = 0; i < service.getGameCount(); i++) {
